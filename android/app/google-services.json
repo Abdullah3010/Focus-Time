@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "148422060929",
+    "project_id": "focus-time-27c9f",
+    "storage_bucket": "focus-time-27c9f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:148422060929:android:eda070fac71fd165855680",
+        "android_client_info": {
+          "package_name": "com.example.focus_time"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "148422060929-9j2tm4gfulq75nt91rjgne3tib42c9lk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBB8amEQnV7u0Y443N_04rqBccV2X5o1xs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "148422060929-9j2tm4gfulq75nt91rjgne3tib42c9lk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
