@@ -7,52 +7,28 @@ import 'package:focus_time/features/tasks/data/models/task_model.dart';
 import 'package:focus_time/features/tasks/presentation/bloc/task_timer/task_timer_bloc.dart';
 import 'package:focus_time/features/tasks/presentation/bloc/task_usecases/task_usecases_bloc.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
+import 'package:timer_count_down/timer_count_down.dart';
 
-class TimerScreen extends StatefulWidget {
+class TimerScreen extends StatelessWidget {
   final TaskModel task;
 
-  const TimerScreen({required this.task});
+  TimerScreen({required this.task});
 
-  @override
-  State<TimerScreen> createState() => _TimerScreenState();
-}
-
-class _TimerScreenState extends State<TimerScreen> {
   late TaskTimerBloc bloc;
-
-  @override
-  void dispose() {
-    bloc.timer.cancel();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
         create: (context) => TaskTimerBloc(),
-        child: BlocConsumer<TaskTimerBloc, TaskTimerState>(
-          listener: (context, state) {
-            if (state is TimerFinishedState) {
-              final tasksUsecasesBloc =
-                  BlocProvider.of<TaskUsecasesBloc>(context);
-              //  tasksUsecasesBloc.currentTask!.progressInMinutes.inMinutes;
-              final progressedTask = widget.task
-                ..progressInMinutes = widget.task.progressInMinutes +
-                    BlocProvider.of<TaskTimerBloc>(context).taskProgress
-                ..score = widget.task.score +
-                    (BlocProvider.of<TaskTimerBloc>(context)
-                            .taskProgress
-                            .inMinutes *
-                        0.6);
-              tasksUsecasesBloc.currentTask = progressedTask;
-              tasksUsecasesBloc.add(UpdateTaskEvent(task: progressedTask));
-            }
-          },
+        child: BlocBuilder<TaskTimerBloc, TaskTimerState>(
           builder: (context, state) {
             bloc = BlocProvider.of<TaskTimerBloc>(context);
             if (state is TaskTimerInitial) {
-              bloc.add(StartTimerEvent(widget.task.timeTechnique));
+              bloc.taskDurationInSeconds = (task.timeTechnique * 60).toInt();
+              bloc.timerRebuildDuration =
+                  Duration(seconds: bloc.taskDurationInSeconds ~/ 100);
+              bloc.add(StartTimerEvent(task.timeTechnique));
             }
             return SafeArea(
               child: Padding(
@@ -63,42 +39,60 @@ class _TimerScreenState extends State<TimerScreen> {
                 child: Center(
                   child: Column(
                     children: [
-                      Stack(
-                        children: [
-                          _taskProgress(
-                            progress: bloc.progress,
-                            color: importanceColor[widget.task.importance]!,
-                          ),
-                          SizedBox(
-                            height: 300,
-                            width: 300,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  width: 200,
-                                  child: Text(
-                                    widget.task.taskName,
-                                    style: const TextStyle(
-                                      fontFamily: 'Times',
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 30,
+                      Countdown(
+                        controller: bloc.timerControler,
+                        seconds: bloc.taskDurationInSeconds,
+                        interval: const Duration(seconds: 1),
+                        onFinished: () {
+                          bloc.taskDone(
+                              task, BlocProvider.of<TaskUsecasesBloc>(context));
+                        },
+                        build: (context, second) {
+                          Duration remainedDuration =
+                              Duration(seconds: second.toInt());
+                          bloc.taskProgress += const Duration(seconds: 1);
+                          return Stack(
+                            children: [
+                              _taskProgress(
+                                animationDuration: bloc
+                                    .timerRebuildDuration.inSeconds
+                                    .toDouble(),
+                                progress: second /
+                                    bloc.timerRebuildDuration.inSeconds,
+                                color: importanceColor[task.importance]!,
+                              ),
+                              SizedBox(
+                                height: 300,
+                                width: 300,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: 200,
+                                      child: Text(
+                                        task.taskName,
+                                        style: const TextStyle(
+                                          fontFamily: 'Times',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 30,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
-                                    textAlign: TextAlign.center,
-                                  ),
+                                    Text(
+                                      _getTimerString(remainedDuration),
+                                      style: const TextStyle(
+                                        fontFamily: 'Times',
+                                        fontSize: 24,
+                                        height: 2,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  _getTimerString(bloc.taskDuration),
-                                  style: const TextStyle(
-                                    fontFamily: 'Times',
-                                    fontSize: 24,
-                                    height: 2,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                              ),
+                            ],
+                          );
+                        },
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -143,35 +137,40 @@ String _getTimerString(Duration timer) {
 }
 
 Widget _taskProgress({
+  required double animationDuration,
   required double progress,
   required Color color,
 }) {
-  return SizedBox(
-    width: 300,
-    height: 300,
-    child: SfRadialGauge(
-      axes: <RadialAxis>[
-        RadialAxis(
-          showTicks: false,
-          showLabels: false,
-          startAngle: 130,
-          endAngle: 50,
-          radiusFactor: 1,
-          axisLineStyle: const AxisLineStyle(
-            thickness: 15,
-          ),
-          pointers: [
-            RangePointer(
-              value: progress,
-              width: 15,
+  return Transform.scale(
+    scaleX: -1,
+    child: SizedBox(
+      width: 300,
+      height: 300,
+      child: SfRadialGauge(
+        axes: <RadialAxis>[
+          RadialAxis(
+            showTicks: false,
+            showLabels: false,
+            startAngle: 130,
+            endAngle: 50,
+            radiusFactor: 1,
+            axisLineStyle: AxisLineStyle(
+              thickness: 15,
               color: color,
-              enableAnimation: true,
-              animationDuration: 1000,
-              animationType: AnimationType.linear,
-            )
-          ],
-        ),
-      ],
+            ),
+            pointers: [
+              RangePointer(
+                value: progress,
+                width: 15,
+                color: Colors.grey[300],
+                enableAnimation: true,
+                animationDuration: animationDuration,
+                animationType: AnimationType.linear,
+              )
+            ],
+          ),
+        ],
+      ),
     ),
   );
 }

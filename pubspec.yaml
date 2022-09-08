@@ -46,6 +46,8 @@ dependencies:
   syncfusion_flutter_gauges: ^20.2.45
   #Audio player
   audioplayers: ^1.0.1
+  #Timer
+  timer_count_down: ^2.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

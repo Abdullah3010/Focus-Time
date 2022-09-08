@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:focus_time/features/tasks/data/models/task_model.dart';
+import 'package:focus_time/features/tasks/presentation/bloc/task_usecases/task_usecases_bloc.dart';
+import 'package:timer_count_down/timer_controller.dart';
 
 part 'task_timer_event.dart';
 part 'task_timer_state.dart';
@@ -11,52 +14,45 @@ class TaskTimerBloc extends Bloc<TaskTimerEvent, TaskTimerState> {
   TaskTimerBloc() : super(TaskTimerInitial()) {
     on<TaskTimerEvent>((event, emit) {
       if (event is StartTimerEvent) {
+        taskDurationInSeconds = (event.timeTechnique * 60).toInt();
+        timerRebuildDuration = Duration(
+            milliseconds: ((taskDurationInSeconds / 100) * 1000).toInt());
         startTimer(event.timeTechnique);
       }
     });
   }
 
   double progress = 0;
-  late Timer timer;
+  int taskDurationInSeconds = 0;
   Duration taskDuration = const Duration();
-  Duration taskProgress = const Duration(minutes: 0);
-
+  Duration timerRebuildDuration = const Duration(seconds: 100);
+  Duration taskProgress = const Duration(seconds: 0);
+  CountdownController timerControler = CountdownController();
   void startTimer(double timeInMinutes) {
-    double timeInSecond = (timeInMinutes * 60);
-    taskDuration = Duration(seconds: timeInSecond.toInt());
-    final double progressFactory = 100 / timeInSecond;
+    timerControler.start();
     emit(TimerStartedState(progress));
-    timer = Timer.periodic(
-      const Duration(seconds: 1),
-      (_) async {
-        progress += progressFactory;
-        timeInSecond -= 1;
+  }
 
-        if (progress > 100) {
-          timer.cancel();
-          final player = AudioPlayer();
-          await player.play(AssetSource('audio/time_finished.mp3'));
-          print(taskDuration.inSeconds);
-          print(taskProgress.inSeconds);
-          emit(TimerFinishedState());
-        } else {
-          taskDuration = Duration(seconds: timeInSecond.toInt());
-          taskProgress = Duration(minutes: taskProgress.inSeconds + 1);
-          emit(TimerStartedState(progress));
-        }
-      },
-    );
+  void taskDone(TaskModel task, TaskUsecasesBloc bloc) async {
+    final player = AudioPlayer();
+    await player.play(AssetSource('audio/time_finished.mp3'));
+    final progressedTask = task
+      ..progressInMinutes = task.progressInMinutes + taskProgress
+      ..score = task.score + taskProgress.inMinutes * 0.6;
+    bloc.currentTask = progressedTask;
+    bloc.add(UpdateTaskEvent(task: progressedTask));
+    emit(TimerFinishedState());
   }
 
   void pauseTimer() {
-    timer.cancel();
-    print(taskDuration.inMinutes);
+    timerControler.pause();
     emit(TimerPausedState());
   }
 
   void resumeTimer() {
-    print("ttttttt" + taskDuration.inMinutes.toDouble().toString());
-    startTimer(taskDuration.inSeconds/60);
+    // print("ttttttt" + taskDuration.inMinutes.toDouble().toString());
+    // startTimer(taskDuration.inSeconds / 60);
+    timerControler.resume();
     emit(TimerResumedState());
   }
 }
