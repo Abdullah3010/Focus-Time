@@ -33,7 +33,6 @@ class AddTaskForm extends StatelessWidget {
       },
       builder: (context, state) {
         final bloc = BlocProvider.of<TaskUsecasesBloc>(context);
-
         return Padding(
           padding: const EdgeInsets.only(top: 20),
           child: Form(

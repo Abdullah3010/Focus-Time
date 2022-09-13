@@ -10,8 +10,8 @@ abstract class HomeState extends Equatable {
 class HomeInitial extends HomeState {}
 
 class ChangeNavigationBarScreenState extends HomeState {
-
-  const ChangeNavigationBarScreenState();
+  final int pageIndex;
+  const ChangeNavigationBarScreenState(this.pageIndex);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [pageIndex];
 }

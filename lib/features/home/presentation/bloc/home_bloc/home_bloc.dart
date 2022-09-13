@@ -25,8 +25,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeEvent>((event, emit) {
       if (event is ChangeNavigationBarScreenEvent) {
         screenIndex = event.index;
-        emit(const ChangeNavigationBarScreenState());
-        emit(HomeInitial());
+        emit(ChangeNavigationBarScreenState(event.index));
       }
     });
   }

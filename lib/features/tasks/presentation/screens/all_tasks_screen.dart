@@ -1,8 +1,8 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:focus_time/core/widgets/stretch_scroll_widget.dart';
 import 'package:focus_time/features/tasks/presentation/bloc/task_usecases/task_usecases_bloc.dart';
-import 'package:focus_time/features/tasks/presentation/widgets/task_widget.dart';
+import 'package:focus_time/features/tasks/presentation/widgets/tasks_list_view.dart';
 
 class AllTasksScreen extends StatelessWidget {
   @override
@@ -14,21 +14,10 @@ class AllTasksScreen extends StatelessWidget {
             state is UpdateTaskSuccessState) {
           bloc.add(const GetAllTasksEvent());
         }
-        return ScrollConfiguration(
-          behavior: const MaterialScrollBehavior().copyWith(overscroll: false),
-          child: StretchingOverscrollIndicator(
-            axisDirection: AxisDirection.down,
-            child: ListView.separated(
-              itemCount: bloc.allTasks.length,
-              itemBuilder: (context, index) {
-                return TaskWidget(
-                  task: bloc.allTasks[index],
-                );
-              },
-              separatorBuilder: (context, index) => const SizedBox(
-                height: 20,
-              ),
-            ),
+
+        return StretchScrollWidget(
+          child: TasksListView(
+            tasks: bloc.allTasks,
           ),
         );
       },

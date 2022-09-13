@@ -6,23 +6,12 @@ import 'package:focus_time/features/tasks/presentation/screens/all_tasks_screen.
 import 'package:focus_time/features/tasks/presentation/screens/completed_screen.dart';
 import 'package:focus_time/features/tasks/presentation/screens/uncompleted_screen.dart';
 import 'package:focus_time/features/tasks/presentation/widgets/top_nav_bar.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 class TasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const tabBarTitles = [
-      'Add Task',
-      'All Tasks',
-      'Completed',
-      'Uncompleted',
-    ];
-    const tabBarIcons = [
-      Icons.add_outlined,
-      FontAwesomeIcons.listCheck,
-      FontAwesomeIcons.clipboardList,
-      Icons.task,
-    ];
+    
     final tabBarScreens = [
       AddTaskScreen(),
       AllTasksScreen(),
@@ -37,8 +26,6 @@ class TasksScreen extends StatelessWidget {
         return Column(
           children: [
             TopNavBar(
-              titles: tabBarTitles,
-              icons: tabBarIcons,
               initialIndex: bloc.currentPage,
               onTap: (index) {
                 bloc.add(ChangeTabBarPageEvent(index));

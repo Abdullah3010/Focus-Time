@@ -63,9 +63,9 @@ class TaskUsecasesBloc extends Bloc<TaskUsecasesEvent, TaskUsecasesState> {
       TextEditingController();
   final TextEditingController deadlineController = TextEditingController();
   final ValueNotifier<String> importanceValue =
-      ValueNotifier('Select importance of task');
+      ValueNotifier('Not Urgent & Not Important');
   final ValueNotifier<String> timeTechniqueValue =
-      ValueNotifier('Select time technique of task');
+      ValueNotifier('25m Work 5m Breack');
   DateTime? deadlineDate;
 
   void pickDate(DateTime date, {bool isUpdated = false}) {

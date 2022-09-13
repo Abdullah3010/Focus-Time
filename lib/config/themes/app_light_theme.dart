@@ -19,6 +19,8 @@ final appTheme = ThemeData(
 
 InputDecorationTheme _getInputDecoration() {
   return InputDecorationTheme(
+    filled: true,
+    fillColor: Colors.white,
     floatingLabelStyle: const TextStyle(
       color: AppColors.primary,
       fontSize: 18,

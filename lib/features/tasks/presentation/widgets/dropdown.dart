@@ -66,23 +66,17 @@ class MiraiImportanceDropdownWidget<String> extends StatelessWidget {
             horizontal: 14,
           ),
           decoration: BoxDecoration(
-            borderRadius: focused!
-                ? const BorderRadius.only(
-                    topLeft: Radius.circular(5),
-                    topRight: Radius.circular(20),
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(5),
-                  )
-                : BorderRadius.circular(10),
-            border: focused!
-                ? Border.all(
-                    width: 2.0,
-                    color: AppColors.primary,
-                  )
-                : Border.all(
-                    color: Colors.grey,
-                    width: 1.0,
-                  ),
+            color: Colors.white,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(5),
+              topRight: Radius.circular(20),
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(5),
+            ),
+            border: Border.all(
+              width: 2.0,
+              color: AppColors.primary,
+            ),
           ),
           height: 60,
           child: Row(
@@ -95,7 +89,6 @@ class MiraiImportanceDropdownWidget<String> extends StatelessWidget {
                     int colorIndex = importanceString.values
                         .toList()
                         .indexOf('$chosenTitle');
-
                     return AnimatedSwitcher(
                       duration: const Duration(milliseconds: 100),
                       child: Stack(
@@ -109,17 +102,16 @@ class MiraiImportanceDropdownWidget<String> extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          if (focused!)
-                            Container(
-                              width: 50,
-                              height: 20,
-                              margin: const EdgeInsets.only(right: 20),
-                              decoration: BoxDecoration(
-                                color:
-                                    importanceColor.values.toList()[colorIndex],
-                                borderRadius: BorderRadius.circular(3),
-                              ),
+                          Container(
+                            width: 50,
+                            height: 20,
+                            margin: const EdgeInsets.only(right: 20),
+                            decoration: BoxDecoration(
+                              color:
+                                  importanceColor.values.toList()[colorIndex],
+                              borderRadius: BorderRadius.circular(3),
                             ),
+                          ),
                         ],
                       ),
                     );
@@ -242,23 +234,17 @@ class MiraiTimeTechnequeDropdownWidget<String> extends StatelessWidget {
             horizontal: 14,
           ),
           decoration: BoxDecoration(
-            borderRadius: focused!
-                ? const BorderRadius.only(
-                    topLeft: Radius.circular(5),
-                    topRight: Radius.circular(20),
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(5),
-                  )
-                : BorderRadius.circular(10),
-            border: focused!
-                ? Border.all(
-                    width: 2.0,
-                    color: AppColors.primary,
-                  )
-                : Border.all(
-                    color: Colors.grey,
-                    width: 1.0,
-                  ),
+            color: Colors.white,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(5),
+              topRight: Radius.circular(20),
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(5),
+            ),
+            border: Border.all(
+              width: 2.0,
+              color: AppColors.primary,
+            ),
           ),
           height: 60,
           child: Row(
@@ -282,16 +268,15 @@ class MiraiTimeTechnequeDropdownWidget<String> extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          if (focused!)
-                            for (int i = 0; i < starsCount! / 2; i++) ...[
-                              Container(
-                                margin: EdgeInsets.only(right: (i + 1) * 22),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(3),
-                                ),
-                                child: Icon(Icons.star),
+                          for (int i = 0; i < starsCount! / 2; i++) ...[
+                            Container(
+                              margin: EdgeInsets.only(right: (i + 1) * 22),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(3),
                               ),
-                            ],
+                              child: Icon(Icons.star),
+                            ),
+                          ],
                         ],
                       ),
                     );

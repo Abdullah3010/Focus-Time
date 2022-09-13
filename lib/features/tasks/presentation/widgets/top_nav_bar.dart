@@ -1,24 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:focus_time/core/utils/app_colors.dart';
-import 'package:focus_time/features/tasks/presentation/bloc/tasks_pages/tasks_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TopNavBar extends StatelessWidget {
-  final List<String> titles;
+  final titles = [
+    'Add Task',
+    'All Tasks',
+    'Completed',
+    'Uncompleted',
+  ];
+  final icons = [
+    Icons.add_outlined,
+    FontAwesomeIcons.listCheck,
+    FontAwesomeIcons.clipboardList,
+    Icons.task,
+  ];
   final int initialIndex;
   final Function(int index) onTap;
-  List<IconData>? icons;
-  List<Tab> tabBars = [];
+  final List<Tab> tabBars = [];
   TopNavBar({
-    required this.titles,
     required this.initialIndex,
     required this.onTap,
-    this.icons,
+    super.key,
   }) {
     for (var i = 0; i < titles.length; i++) {
       tabBars.add(
         Tab(
           text: titles[i],
-          icon: Icon(icons![i]),
+          icon: Icon(icons[i]),
         ),
       );
     }
