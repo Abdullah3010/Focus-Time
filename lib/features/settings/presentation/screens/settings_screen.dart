@@ -1,26 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:focus_time/core/widgets/rounded_button.dart';
+import 'package:focus_time/core/widgets/stretch_scroll_widget.dart';
+import 'package:focus_time/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'package:focus_time/features/settings/presentation/bloc/settings_bloc/settings_bloc.dart';
 
 class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
-          Center(
-            child: Text(
-              "settings بقولك بقولك في مفجأه في \n روحي بصي كده",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-              textAlign: TextAlign.center,
+    return StretchScrollWidget(
+      child: Center(
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            IconButton(
+              onPressed: () {
+                BlocProvider.of<SettingsBloc>(context)
+                    .add(SwitchThemeModeEvent());
+              },
+              icon: Icon(Icons.dark_mode),
             ),
-          ),
-        ],
+            RoundedButton(
+              child: const Text('log out'),
+              onPressed: () {
+                BlocProvider.of<AuthBloc>(context).add(LogOutEvent());
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

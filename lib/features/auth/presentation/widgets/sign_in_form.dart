@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:focus_time/features/home/presentation/screens/home_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:focus_time/core/widgets/my_date_picker.dart';
@@ -51,6 +52,12 @@ class SignInForm extends StatelessWidget {
                   },
                 ),
               ],
+            ),
+          );
+        } else if (state is AuthSignInSuccessState) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(),
             ),
           );
         }
@@ -231,8 +238,7 @@ class SignInForm extends StatelessWidget {
                   SocialIcon(
                     icon: FontAwesomeIcons.facebook,
                     color: const Color(0xff035397),
-                    onPressed: () {
-                    },
+                    onPressed: () {},
                   ),
                   const SizedBox(
                     width: 20,
@@ -241,8 +247,7 @@ class SignInForm extends StatelessWidget {
                   SocialIcon(
                     icon: FontAwesomeIcons.googlePlus,
                     color: const Color(0xffF90716),
-                    onPressed: () {
-                    },
+                    onPressed: () {},
                   ),
                 ],
               ),

@@ -27,6 +27,8 @@ class UpdateTaskErrorState extends TaskUsecasesState {}
 
 class GetAllTasksSuccessState extends TaskUsecasesState {}
 
+class GetAllTasksSuccessAndEmptyState extends TaskUsecasesState {}
+
 class GetAllTasksLoadingState extends TaskUsecasesState {}
 
 class GetAllTasksErrorState extends TaskUsecasesState {}

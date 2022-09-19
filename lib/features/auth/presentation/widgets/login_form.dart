@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:focus_time/core/widgets/rounded_button.dart';
@@ -121,7 +120,7 @@ class LoginForm extends StatelessWidget {
                   TextButton(
                     onPressed: () {
                       bloc.isPassword = true;
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => SignInScreen()),
                       );

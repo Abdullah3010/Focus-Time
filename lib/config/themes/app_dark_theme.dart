@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:focus_time/core/utils/app_colors.dart';
 
-final appLightTheme = ThemeData(
-  brightness: Brightness.light,
-  colorScheme: const ColorScheme.light(
+final appDarkTheme = ThemeData(
+  brightness: Brightness.dark,
+  appBarTheme: const AppBarTheme(
+    backgroundColor: AppColors.primary,
+  ),
+  scaffoldBackgroundColor: Color.fromARGB(255, 50, 50, 50),
+  primaryColor: AppColors.primary,
+  colorScheme: const ColorScheme.dark(
     primary: AppColors.primary,
     secondary: AppColors.accent,
     background: AppColors.backgroundLight,
     error: AppColors.error,
   ),
-  appBarTheme: const AppBarTheme(
-    backgroundColor: AppColors.primary,
-  ),
-  scaffoldBackgroundColor: AppColors.backgroundLight,
-  // primaryColor: AppColors.primary,
   progressIndicatorTheme: const ProgressIndicatorThemeData(
     color: AppColors.primary,
   ),

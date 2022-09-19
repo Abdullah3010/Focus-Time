@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:focus_time/core/utils/app_colors.dart';
 import 'package:focus_time/features/home/presentation/bloc/home_bloc/home_bloc.dart';
-import 'package:focus_time/features/tasks/presentation/bloc/task_usecases/task_usecases_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
@@ -10,7 +9,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<HomeBloc>(context);
-
     final navBarItems = [
       _navBarItem(FontAwesomeIcons.earthAfrica, 'World'),
       _navBarItem(Icons.grid_3x3, 'Matrix'),
@@ -18,7 +16,7 @@ class HomeScreen extends StatelessWidget {
       _navBarItem(Icons.person, 'Profile'),
       _navBarItem(Icons.settings, 'Settings'),
     ];
-    
+
     return Scaffold(
       body: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {

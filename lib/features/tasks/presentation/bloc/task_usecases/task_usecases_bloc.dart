@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:focus_time/config/notifications/app_notification.dart';
 import 'package:focus_time/core/task/task_importance.dart';
+import 'package:focus_time/core/user/current_user.dart';
 import 'package:focus_time/features/tasks/data/models/task_model.dart';
 import 'package:focus_time/features/tasks/domain/usecases/add_task.dart';
 import 'package:focus_time/features/tasks/domain/usecases/get_all_tasks.dart';
@@ -17,6 +19,7 @@ class TaskUsecasesBloc extends Bloc<TaskUsecasesEvent, TaskUsecasesState> {
   final UpdateTaskUsecase updateTaskUsecase;
 
   List<TaskModel> allTasks = [];
+
   TaskUsecasesBloc({
     required this.addTaskUsecase,
     required this.getAllTasksUsecase,
@@ -30,20 +33,29 @@ class TaskUsecasesBloc extends Bloc<TaskUsecasesEvent, TaskUsecasesState> {
           (failure) => emit(AddTaskErrorState()),
           (task) {
             allTasks.add(task);
+            NotificationServes.scheduledNewTask(task: task);
             emit(AddTaskSuccessState());
           },
         );
       } else if (event is GetAllTasksEvent) {
         emit(GetAllTasksLoadingState());
         allTasks.clear();
-        final response = await getAllTasksUsecase();
-        response.fold(
-          (failure) => emit(GetAllTasksErrorState()),
-          (tasks) {
-            allTasks.addAll(tasks);
-            emit(GetAllTasksSuccessState());
-          },
-        );
+        if (CurrentUser.get() != null) {
+          final response = await getAllTasksUsecase();
+          response.fold(
+            (failure) => emit(GetAllTasksErrorState()),
+            (tasks) {
+              allTasks.addAll(tasks);
+              if (allTasks.isEmpty) {
+                emit(GetAllTasksSuccessAndEmptyState());
+              } else {
+                emit(GetAllTasksSuccessState());
+              }
+            },
+          );
+        } else {
+          emit(GetAllTasksErrorState());
+        }
       } else if (event is UpdateTaskEvent) {
         emit(UpdateTaskLoadingState());
         final response = await updateTaskUsecase(event.task);

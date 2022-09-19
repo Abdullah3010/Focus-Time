@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:focus_time/core/errors/failures.dart';
 import 'package:focus_time/core/strings/failure_messages.dart';
 import 'package:focus_time/core/strings/firebase_messages.dart';
@@ -54,8 +53,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           ),
           (user) {
             CurrentUser.set(user);
-
-            FirebaseAuth.instance.currentUser!.reload();
             emit(AuthSignInSuccessState(user: user));
           },
         );

@@ -11,7 +11,7 @@
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="focus_time">
+        android:label="Focus Time">
         <receiver
             android:name=".TimerWidget"
             android:exported="false">

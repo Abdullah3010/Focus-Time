@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:focus_time/core/utils/app_colors.dart';
 
 class InputField extends StatelessWidget {
   final String? label;
@@ -12,8 +11,8 @@ class InputField extends StatelessWidget {
   final int? maxLines;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
-  EdgeInsets? padding;
-  InputField({
+  final EdgeInsets? padding;
+  const InputField({
     this.label,
     this.validator,
     this.controller,

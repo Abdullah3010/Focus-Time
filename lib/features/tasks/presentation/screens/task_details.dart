@@ -284,7 +284,7 @@ class MyAppBar extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final path = Path();
-    path.moveTo(0, size.height * 0.9);
+    path.moveTo(0, size.height * 0.7);
     path.quadraticBezierTo(
       size.width * 0.3,
       size.height,

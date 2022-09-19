@@ -7,11 +7,9 @@ import 'package:focus_time/features/tasks/presentation/screens/completed_screen.
 import 'package:focus_time/features/tasks/presentation/screens/uncompleted_screen.dart';
 import 'package:focus_time/features/tasks/presentation/widgets/top_nav_bar.dart';
 
-
 class TasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    
     final tabBarScreens = [
       AddTaskScreen(),
       AllTasksScreen(),
@@ -22,7 +20,6 @@ class TasksScreen extends StatelessWidget {
     return BlocBuilder<TasksBloc, TasksState>(
       builder: (context, state) {
         final bloc = BlocProvider.of<TasksBloc>(context);
-
         return Column(
           children: [
             TopNavBar(

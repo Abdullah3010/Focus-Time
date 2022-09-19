@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:focus_time/features/auth/data/models/user_model.dart';
 import 'package:focus_time/features/tasks/domain/entities/task_entity.dart';
 
 class TaskModel extends TaskEntity {

@@ -11,7 +11,5 @@ class AppConfig {
     await MyInjector.init();
     await MySqfliteAPI.initLocalDatabase();
     await MySqfliteAPI.getLogedUser();
-    // MyAwesomeNotificationServes.init();
-
   }
 }

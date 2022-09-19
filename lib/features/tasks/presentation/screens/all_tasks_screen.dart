@@ -9,8 +9,11 @@ class AllTasksScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<TaskUsecasesBloc, TaskUsecasesState>(
       builder: (context, state) {
+        print(3);
         final bloc = BlocProvider.of<TaskUsecasesBloc>(context);
-        if ((bloc.allTasks.isEmpty && state is! GetAllTasksLoadingState) ||
+        if ((bloc.allTasks.isEmpty &&
+                state is! GetAllTasksLoadingState &&
+                state is! GetAllTasksSuccessAndEmptyState) ||
             state is UpdateTaskSuccessState) {
           bloc.add(const GetAllTasksEvent());
         }
