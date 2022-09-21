@@ -100,7 +100,7 @@ class AddTaskForm extends StatelessWidget {
                   },
                 ),
                 RoundedButton(
-                  child: const Text('Add task'),
+                  text: 'add task',
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
                       final newTask = TaskModel(

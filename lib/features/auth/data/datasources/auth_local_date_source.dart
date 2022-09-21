@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:focus_time/config/api/sqflite_constant.dart';
+import 'package:focus_time/config/api/sqflite_api.dart';
 import 'package:focus_time/features/auth/data/models/user_model.dart';
 
 abstract class AuthLocalDateSource {

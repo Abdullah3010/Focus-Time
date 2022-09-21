@@ -22,7 +22,7 @@ class SettingsScreen extends StatelessWidget {
               icon: Icon(Icons.dark_mode),
             ),
             RoundedButton(
-              child: const Text('log out'),
+              text: 'log Out',
               onPressed: () {
                 BlocProvider.of<AuthBloc>(context).add(LogOutEvent());
               },

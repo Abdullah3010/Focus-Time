@@ -158,7 +158,7 @@ class TaskDetails extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         RoundedButton(
-                          child: const Text('Start '),
+                          text: 'Start',
                           onPressed: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
@@ -170,7 +170,7 @@ class TaskDetails extends StatelessWidget {
                           },
                         ),
                         RoundedButton(
-                          child: const Text('Update'),
+                          text: 'Edit',
                           onPressed: () {
                             bloc.currentTask = task;
                             bloc.prepareUpdateScreen();

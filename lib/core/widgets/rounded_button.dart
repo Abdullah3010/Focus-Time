@@ -2,41 +2,52 @@ import 'package:flutter/material.dart';
 import 'package:focus_time/core/utils/app_colors.dart';
 
 class RoundedButton extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
+  final String? text;
   final Function onPressed;
-  final double? borderRadius;
-  final EdgeInsetsGeometry margin;
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
+  final double width;
+  final double height;
 
   const RoundedButton({
-    required this.child,
     required this.onPressed,
-    this.borderRadius = 50,
-    this.margin = const EdgeInsets.symmetric(vertical: 10),
-    this.padding = const EdgeInsets.symmetric(
-      horizontal: 50,
-      vertical: 12,
-    ),
+    this.child,
+    this.text = 'Test Button',
+    this.padding = const EdgeInsets.symmetric(vertical: 12, horizontal: 30),
+    this.width = 120,
+    this.height = 40,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(AppColors.accent),
-        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-          padding,
-        ),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(100),
-          ),
+    return MaterialButton(
+      color: AppColors.primary,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(3),
+          bottomRight: Radius.circular(3),
+          bottomLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
         ),
       ),
+      elevation: 5,
       onPressed: () {
         onPressed();
       },
-      child: child,
+      child: Container(
+        width: width,
+        height: height,
+        child: Center(
+          child: child ??
+              Text(
+                text!.toUpperCase(),
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+              ),
+        ),
+      ),
     );
   }
 }

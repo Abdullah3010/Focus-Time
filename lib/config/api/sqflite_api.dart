@@ -12,8 +12,7 @@ class MySqfliteAPI {
     localDatabase = await openDatabase(
       LOCAL_DATABASE_NAME,
       version: 1,
-      onOpen: (database) async {
-      },
+      onOpen: (database) async {},
       onCreate: (database, version) async {
         // When creating the db, create the table
         await database.execute(
@@ -57,6 +56,18 @@ class MySqfliteAPI {
           .rawQuery('SELECT * FROM users WHERE userId = \'$id\'');
       return storedUser[0];
     } catch (e) {
+      print("--------------");
+      print(e);
+      throw UnexpectedDatabaseException();
+    }
+  }
+
+  static Future<Map<String, dynamic>> getCurrentUser(String id) async {
+    try {
+      final storedUser = await localDatabase
+          .rawQuery('SELECT * FROM current_user WHERE userId = \'$id\'');
+      return storedUser[0];
+    } catch (e) {
       throw UnexpectedDatabaseException();
     }
   }
@@ -87,7 +98,6 @@ class MySqfliteAPI {
         throw AuthLocalUserNotFountException();
       }
     } catch (e) {
-      
       throw UnexpectedDatabaseException();
     }
   }
@@ -106,6 +116,23 @@ class MySqfliteAPI {
           await localDatabase.rawQuery('SELECT * FROM current_user');
       if (storedUser.length == 1) {
         CurrentUser.set(UserModel.fromDatabase(storedUser[0]));
+      }
+    } catch (e) {
+      throw UnexpectedDatabaseException();
+    }
+  }
+
+  static Future<void> updateUser(UserModel user) async {
+    try {
+      await localDatabase.update('users', user.toDatabase(),
+          where: 'userId = ?', whereArgs: [user.userId]);
+      await localDatabase.update('current_user', user.toDatabase(),
+          where: 'userId = ?', whereArgs: [user.userId]);
+    } on DatabaseException catch (e) {
+      if (e.isUniqueConstraintError()) {
+        throw InsertingExistsUserException();
+      } else if (e.isNotNullConstraintError()) {
+        throw InsertingNullException();
       }
     } catch (e) {
       throw UnexpectedDatabaseException();

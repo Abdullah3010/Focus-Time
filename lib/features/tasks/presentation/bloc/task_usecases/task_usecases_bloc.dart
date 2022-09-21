@@ -153,7 +153,6 @@ class TaskUsecasesBloc extends Bloc<TaskUsecasesEvent, TaskUsecasesState> {
   DateTime? updatedDeadlineDate;
 
   void prepareUpdateScreen() {
-    print(currentTask);
     updatedTaskNameController.text = currentTask!.taskName;
     updatedTaskDescriptionController.text = currentTask!.taskDescription;
     updatedImportanceFocused = true;

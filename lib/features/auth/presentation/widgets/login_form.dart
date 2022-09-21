@@ -91,12 +91,7 @@ class LoginForm extends StatelessWidget {
                 ),
               ),
               RoundedButton(
-                child: const Text(
-                  "login",
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
+                text: 'Login',
                 onPressed: () async {
                   if (formKey.currentState!.validate()) {
                     bloc.add(
@@ -167,8 +162,7 @@ class LoginForm extends StatelessWidget {
                   SocialIcon(
                     icon: FontAwesomeIcons.facebook,
                     color: const Color(0xff035397),
-                    onPressed: () {
-                    },
+                    onPressed: () {},
                   ),
                   const SizedBox(
                     width: 20,
@@ -177,8 +171,7 @@ class LoginForm extends StatelessWidget {
                   SocialIcon(
                     icon: FontAwesomeIcons.googlePlus,
                     color: const Color(0xffF90716),
-                    onPressed: () {
-                    },
+                    onPressed: () {},
                   ),
                 ],
               ),

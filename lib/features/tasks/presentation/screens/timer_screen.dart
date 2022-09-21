@@ -12,9 +12,7 @@ import 'package:timer_count_down/timer_count_down.dart';
 class TimerScreen extends StatelessWidget {
   final TaskModel task;
 
-  TimerScreen({required this.task});
-
-  late TaskTimerBloc bloc;
+  const TimerScreen({required this.task});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +21,7 @@ class TimerScreen extends StatelessWidget {
         create: (context) => TaskTimerBloc(),
         child: BlocBuilder<TaskTimerBloc, TaskTimerState>(
           builder: (context, state) {
-            bloc = BlocProvider.of<TaskTimerBloc>(context);
+            TaskTimerBloc bloc = BlocProvider.of<TaskTimerBloc>(context);
             if (state is TaskTimerInitial) {
               bloc.taskDurationInSeconds = (task.timeTechnique * 60).toInt();
               bloc.timerRebuildDuration =
@@ -98,13 +96,13 @@ class TimerScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           RoundedButton(
-                            child: Text('| |'),
+                            text: 'Pause',
                             onPressed: () {
                               bloc.pauseTimer();
                             },
                           ),
                           RoundedButton(
-                            child: Text('|>'),
+                            text: 'Resume',
                             onPressed: () {
                               bloc.resumeTimer();
                             },
@@ -175,64 +173,6 @@ Widget _taskProgress({
   );
 }
 
-/****
- * 
-  SizedBox(
-            width: double.infinity,
-            height: 140,
-            child: CustomPaint(
-              painter: MyAppBar(),
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 30),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      task.taskName,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 35),
-                      child: Text(
-                        'score : ${task.score.toString()}',
-                        style: const TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Text(task.taskDescription),
-          const SizedBox(
-            height: 100,
-          ),
-          const SizedBox(
-            height: 100,
-          ),
-          RoundedButton(
-            child: Text('start'),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => TimerScreen(
-                    task: task,
-                  ),
-                ),
-              );
-            },
-          ),
-        
- * 
- */
 class MyAppBar extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

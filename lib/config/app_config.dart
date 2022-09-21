@@ -1,5 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:focus_time/config/api/sqflite_constant.dart';
+import 'package:focus_time/config/api/sqflite_api.dart';
 import 'package:focus_time/firebase_options.dart';
 import 'package:focus_time/injector.dart';
 

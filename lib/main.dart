@@ -8,6 +8,7 @@ import 'package:focus_time/features/auth/presentation/bloc/auth_bloc/auth_bloc.d
 import 'package:focus_time/features/auth/presentation/screens/login_screen.dart';
 import 'package:focus_time/features/home/presentation/bloc/home_bloc/home_bloc.dart';
 import 'package:focus_time/features/home/presentation/screens/home_screen.dart';
+import 'package:focus_time/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:focus_time/features/settings/presentation/bloc/settings_bloc/settings_bloc.dart';
 import 'package:focus_time/features/tasks/presentation/bloc/task_usecases/task_usecases_bloc.dart';
 import 'package:focus_time/features/tasks/presentation/bloc/tasks_pages/tasks_bloc.dart';
@@ -38,6 +39,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (_) => HomeBloc()),
         BlocProvider(create: (_) => TasksBloc()),
         BlocProvider(create: (_) => MyInjector.injector<TaskUsecasesBloc>()),
+        BlocProvider(create: (_) => MyInjector.injector<ProfileBloc>()),
         BlocProvider(create: (_) => SettingsBloc()),
       ],
       child: StreamBuilder<User?>(
@@ -54,6 +56,9 @@ class _MyAppState extends State<MyApp> {
               final bloc = BlocProvider.of<SettingsBloc>(context);
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
+                // routes: {
+                //   '/test': (context) => const TestScreen(),
+                // },
                 title: 'Focus Time',
                 theme: appLightTheme,
                 darkTheme: appDarkTheme,

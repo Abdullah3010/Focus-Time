@@ -149,12 +149,7 @@ class SignInForm extends StatelessWidget {
                 },
               ),
               RoundedButton(
-                child: const Text(
-                  "Sign In",
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
+                text: 'Sign Up',
                 onPressed: () async {
                   if (formKey.currentState!.validate()) {
                     final firstAndLastName = _getFirstAndLastName(
@@ -254,6 +249,7 @@ class SignInForm extends StatelessWidget {
             ],
           ),
         );
+      
       },
     );
   }
