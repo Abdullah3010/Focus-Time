@@ -97,6 +97,7 @@ class NotificationServes {
       priority: Priority.high,
       enableLights: true,
       enableVibration: true,
+      
     );
     NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);

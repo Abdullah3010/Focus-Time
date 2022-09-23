@@ -71,9 +71,6 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 5,
-                ),
                 margin: const EdgeInsets.all(22),
                 width: double.infinity,
                 decoration: const BoxDecoration(
@@ -107,6 +104,7 @@ class ProfileScreen extends StatelessWidget {
                         );
                       },
                       isLastRow: item['index'] == _profileItems.length,
+                      isFristRow: item['index'] == 1,
                     );
                   }).toList(),
                 ),
@@ -123,13 +121,21 @@ class ProfileScreen extends StatelessWidget {
     required String title,
     required Function onTap,
     bool? isLastRow,
+    bool? isFristRow,
   }) {
     return Material(
       color: Colors.transparent,
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(isFristRow! ? 5 : 0),
+        topRight: Radius.circular(20),
+        bottomLeft: Radius.circular(20),
+        bottomRight: Radius.circular(isLastRow! ? 5 : 0),
+      ),
+      clipBehavior: Clip.hardEdge,
       child: InkWell(
         onTap: () => onTap(),
-        splashColor: Colors.amber,
-        splashFactory: InkSplash.splashFactory,
+        splashColor: AppColors.primary.withOpacity(0.2),
+        highlightColor: Colors.grey.withOpacity(0.1),
         child: Column(
           children: [
             Padding(

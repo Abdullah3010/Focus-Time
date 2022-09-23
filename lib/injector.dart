@@ -9,6 +9,12 @@ import 'package:focus_time/features/auth/domain/usecases/login.dart';
 import 'package:focus_time/features/auth/domain/usecases/logout.dart';
 import 'package:focus_time/features/auth/domain/usecases/sign_in.dart';
 import 'package:focus_time/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'package:focus_time/features/groups/data/datasources/group_remote_date_source.dart';
+import 'package:focus_time/features/groups/data/repositories/group_repository_imp.dart';
+import 'package:focus_time/features/groups/domain/repositories/group_repository.dart';
+import 'package:focus_time/features/groups/domain/usecases/create_group.dart';
+import 'package:focus_time/features/groups/domain/usecases/get_all_groups.dart';
+import 'package:focus_time/features/groups/presentation/bloc/usecases_bloc/group_usecases_bloc.dart';
 import 'package:focus_time/features/profile/data/datasources/profile_local_date_source.dart';
 import 'package:focus_time/features/profile/data/datasources/profile_remote_data_source.dart';
 import 'package:focus_time/features/profile/data/repositories/profile_repository_imp.dart';
@@ -132,8 +138,39 @@ class MyInjector {
     );
     injector.registerLazySingleton<ProfileLocalDataSource>(
         () => ProfileLocalWithSqflite());
-//!Core
 
+//! Features - group
+
+// Bloc
+
+    injector.registerFactory<GroupUsecasesBloc>(
+      () => GroupUsecasesBloc(
+        createGroupUsecase: injector(),
+        getAllGroupsUsecase: injector(),
+      ),
+    );
+
+// Usecases
+
+    injector.registerLazySingleton(() => CreateGroupUsecase(injector()));
+    injector.registerLazySingleton(() => GetAllGroupsUsecase(injector()));
+
+// Repository
+
+    injector.registerLazySingleton<GroupRepository>(
+      () => GroupRepositoryImp(
+        groupRemoteDateSource: injector(),
+      ),
+    );
+
+// Datasources
+
+    injector.registerLazySingleton<GroupRemoteDataSource>(
+      () => GroupRemoteImpWithFirebase(
+        firestore: injector(),
+      ),
+    );
+//!Core
     injector
         .registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(injector()));
 

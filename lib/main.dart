@@ -6,6 +6,7 @@ import 'package:focus_time/config/themes/app_dark_theme.dart';
 import 'package:focus_time/config/themes/app_light_theme.dart';
 import 'package:focus_time/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:focus_time/features/auth/presentation/screens/login_screen.dart';
+import 'package:focus_time/features/groups/presentation/bloc/usecases_bloc/group_usecases_bloc.dart';
 import 'package:focus_time/features/home/presentation/bloc/home_bloc/home_bloc.dart';
 import 'package:focus_time/features/home/presentation/screens/home_screen.dart';
 import 'package:focus_time/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
@@ -40,6 +41,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (_) => TasksBloc()),
         BlocProvider(create: (_) => MyInjector.injector<TaskUsecasesBloc>()),
         BlocProvider(create: (_) => MyInjector.injector<ProfileBloc>()),
+        BlocProvider(create: (_) => MyInjector.injector<GroupUsecasesBloc>()),
         BlocProvider(create: (_) => SettingsBloc()),
       ],
       child: StreamBuilder<User?>(
