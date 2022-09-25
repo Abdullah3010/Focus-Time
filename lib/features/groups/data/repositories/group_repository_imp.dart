@@ -17,12 +17,14 @@ class GroupRepositoryImp extends GroupRepository {
     required String groupName,
     required String groupDescription,
     required UserModel groupOwner,
+    required List<String> groupMembers,
   }) async {
     try {
       final group = await groupRemoteDateSource.createGroup(
         groupName: groupName,
         groupDescription: groupDescription,
         groupOwner: groupOwner,
+        groupMembers: groupMembers,
       );
       return Right(group);
     } catch (e) {

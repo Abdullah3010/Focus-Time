@@ -8,6 +8,7 @@ abstract class GroupRepository {
     required String groupName,
     required String groupDescription,
     required UserModel groupOwner,
+    required List<String> groupMembers,
   });
   Future<Either<Failure, List<GroupModel>>>  getAllGroups();
 }

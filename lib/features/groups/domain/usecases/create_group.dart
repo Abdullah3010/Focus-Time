@@ -15,11 +15,13 @@ class CreateGroupUsecase {
     required String groupName,
     required String groupDescription,
     required UserModel groupOwner,
+    required List<String> groupMembers,
   }) async {
     return await groupRepository.createGroup(
       groupName: groupName,
       groupDescription: groupDescription,
       groupOwner: groupOwner,
+      groupMembers: groupMembers,
     );
   }
 }

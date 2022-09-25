@@ -11,11 +11,13 @@ class CreateGroupEvent extends GroupUsecasesEvent {
   final String groupName;
   final String groupDescription;
   final UserModel groupOwner;
+  final List<String> groupMembers;
 
   const CreateGroupEvent({
     required this.groupName,
     required this.groupDescription,
     required this.groupOwner,
+    required this.groupMembers,
   });
 
   @override
@@ -23,6 +25,7 @@ class CreateGroupEvent extends GroupUsecasesEvent {
         groupName,
         groupDescription,
         groupOwner,
+        groupMembers,
       ];
 }
 

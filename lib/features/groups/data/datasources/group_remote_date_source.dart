@@ -12,6 +12,7 @@ abstract class GroupRemoteDataSource {
     required String groupName,
     required String groupDescription,
     required UserModel groupOwner,
+    required List<String> groupMembers,
   });
 
   Future<List<GroupModel>> getAllGroups();
@@ -29,12 +30,14 @@ class GroupRemoteImpWithFirebase extends GroupRemoteDataSource {
     required String groupName,
     required String groupDescription,
     required UserModel groupOwner,
+    required List<String> groupMembers,
   }) async {
     try {
       final group = GroupModel(
         groupName: groupName,
         groupDescription: groupDescription,
         groupOwner: groupOwner,
+        groupMembers: groupMembers,
       );
       final groupRef = firestore.collection('groups').doc();
       group.groupId = groupRef.id;
@@ -51,7 +54,7 @@ class GroupRemoteImpWithFirebase extends GroupRemoteDataSource {
       final groups = await firestore.collection('groups').get();
       final groupList = groups.docs.map((group) {
         final groupData = group.data();
-        if (groupData['groupOwner'] == CurrentUser.get()!.userId) {
+        if (groupData['group_owner'] == CurrentUser.get()!.userId) {
           return GroupModel.fromJson(
             groupData,
             CurrentUser.get()!,
@@ -62,6 +65,7 @@ class GroupRemoteImpWithFirebase extends GroupRemoteDataSource {
       }).toList();
       return Future.value(groupList);
     } catch (e) {
+      print(e);
       rethrow;
     }
   }

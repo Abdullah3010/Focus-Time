@@ -7,12 +7,14 @@ class GroupEntity extends Equatable {
   final String groupName;
   final String groupDescription;
   final UserModel groupOwner;
+  final List<String> groupMembers;
 
   GroupEntity({
     this.groupId,
     required this.groupName,
     required this.groupDescription,
     required this.groupOwner,
+    required this.groupMembers,
   });
 
   @override
@@ -21,5 +23,6 @@ class GroupEntity extends Equatable {
         groupName,
         groupDescription,
         groupOwner,
+        groupMembers,
       ];
 }
