@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:focus_time/features/auth/data/models/user_model.dart';
 
-class MembersScreen extends StatelessWidget {
-  final List<String> members;
+class GroupSettingsScreen extends StatelessWidget {
+  final UserModel owner;
 
-  const MembersScreen({super.key, required this.members});
+  const GroupSettingsScreen({super.key, required this.owner});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class MembersScreen extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            ...members.map((e) => Text(e)),
+            Text(owner.email),
           ],
         ),
       ),

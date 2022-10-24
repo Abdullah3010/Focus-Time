@@ -30,3 +30,18 @@ class CreateGroupEvent extends GroupUsecasesEvent {
 }
 
 class GetAllGroupsEvent extends GroupUsecasesEvent {}
+
+class GetAllUsersEvent extends GroupUsecasesEvent {}
+
+class GetUserEvent extends GroupUsecasesEvent {
+  final String uId;
+
+  const GetUserEvent({
+    required this.uId,
+  });
+
+  @override
+  List<Object> get props => [
+        uId,
+      ];
+}

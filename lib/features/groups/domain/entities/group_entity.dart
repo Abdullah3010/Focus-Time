@@ -8,6 +8,8 @@ class GroupEntity extends Equatable {
   final String groupDescription;
   final UserModel groupOwner;
   final List<String> groupMembers;
+  final Timestamp createdDate;
+  final DocumentReference groupMembersRef;
 
   GroupEntity({
     this.groupId,
@@ -15,6 +17,7 @@ class GroupEntity extends Equatable {
     required this.groupDescription,
     required this.groupOwner,
     required this.groupMembers,
+    required this.createdDate,
   });
 
   @override
@@ -24,5 +27,6 @@ class GroupEntity extends Equatable {
         groupDescription,
         groupOwner,
         groupMembers,
+        createdDate,
       ];
 }

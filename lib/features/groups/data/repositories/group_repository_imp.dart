@@ -41,4 +41,24 @@ class GroupRepositoryImp extends GroupRepository {
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, List<UserModel>>> getAllUsers() async {
+    try {
+      final groups = await groupRemoteDateSource.getAllUsers();
+      return Right(groups);
+    } catch (e) {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserModel>> getUser(String uId) async {
+    try {
+      final user = await groupRemoteDateSource.getUser(uId);
+      return Right(user);
+    } catch (e) {
+      return Left(ServerFailure());
+    }
+  }
 }

@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<HomeBloc>(context);
     final navBarItems = [
-      _navBarItem(FontAwesomeIcons.earthAfrica, 'World'),
+      _navBarItem(Icons.group_outlined, 'Groups'),
       _navBarItem(Icons.grid_3x3, 'Matrix'),
       _navBarItem(Icons.task_alt_outlined, 'Tasks'),
       _navBarItem(Icons.person, 'Profile'),

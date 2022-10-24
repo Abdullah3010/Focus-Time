@@ -10,11 +10,11 @@ class GroupModel extends GroupEntity {
     required super.groupDescription,
     required super.groupOwner,
     required super.groupMembers,
+    required super.createdDate,
   });
 
   factory GroupModel.fromJson(Map<String, dynamic> json, UserModel owner) {
     final groupMemberList = json['group_members'].map<String>((member) {
-      print(member);
       return member.toString();
     }).toList();
     return GroupModel(
@@ -23,6 +23,7 @@ class GroupModel extends GroupEntity {
       groupDescription: json['group_description'],
       groupOwner: owner,
       groupMembers: groupMemberList,
+      createdDate: json['created_date'],
     );
   }
 
@@ -33,6 +34,7 @@ class GroupModel extends GroupEntity {
       'group_description': groupDescription,
       'group_owner': groupOwner.userId,
       'group_members': groupMembers,
+      'created_date': createdDate,
     };
   }
 }

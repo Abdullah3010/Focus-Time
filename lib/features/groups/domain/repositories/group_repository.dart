@@ -10,5 +10,7 @@ abstract class GroupRepository {
     required UserModel groupOwner,
     required List<String> groupMembers,
   });
-  Future<Either<Failure, List<GroupModel>>>  getAllGroups();
+  Future<Either<Failure, List<GroupModel>>> getAllGroups();
+  Future<Either<Failure, List<UserModel>>> getAllUsers();
+  Future<Either<Failure, UserModel>> getUser(String uId);
 }

@@ -14,6 +14,8 @@ import 'package:focus_time/features/groups/data/repositories/group_repository_im
 import 'package:focus_time/features/groups/domain/repositories/group_repository.dart';
 import 'package:focus_time/features/groups/domain/usecases/create_group.dart';
 import 'package:focus_time/features/groups/domain/usecases/get_all_groups.dart';
+import 'package:focus_time/features/groups/domain/usecases/get_all_users.dart';
+import 'package:focus_time/features/groups/domain/usecases/get_user_usecase.dart';
 import 'package:focus_time/features/groups/presentation/bloc/usecases_bloc/group_usecases_bloc.dart';
 import 'package:focus_time/features/profile/data/datasources/profile_local_date_source.dart';
 import 'package:focus_time/features/profile/data/datasources/profile_remote_data_source.dart';
@@ -147,6 +149,8 @@ class MyInjector {
       () => GroupUsecasesBloc(
         createGroupUsecase: injector(),
         getAllGroupsUsecase: injector(),
+        getUserUsecase: injector(),
+        getAllUsersUsecase: injector(),
       ),
     );
 
@@ -154,6 +158,8 @@ class MyInjector {
 
     injector.registerLazySingleton(() => CreateGroupUsecase(injector()));
     injector.registerLazySingleton(() => GetAllGroupsUsecase(injector()));
+    injector.registerLazySingleton(() => GetAllUsersUsecase(injector()));
+    injector.registerLazySingleton(() => GetUserUsecase(injector()));
 
 // Repository
 

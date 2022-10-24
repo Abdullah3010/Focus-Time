@@ -4,6 +4,7 @@ import 'package:focus_time/core/widgets/rounded_button.dart';
 import 'package:focus_time/features/auth/data/models/user_model.dart';
 import 'package:focus_time/features/profile/presentation/screens/update_account_screen.dart';
 import 'package:intl/intl.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class AccountScreen extends StatelessWidget {
   final UserModel user;
@@ -78,6 +79,12 @@ class AccountScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
+                  QrImage(
+                    data: user.userId!,
+                    version: QrVersions.auto,
+                    size: 100.0,
+                    foregroundColor: AppColors.primary,
+                  ),
                   ...userData.map(
                     (item) {
                       return _createRowItem(

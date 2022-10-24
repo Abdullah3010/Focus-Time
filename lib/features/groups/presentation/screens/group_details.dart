@@ -4,6 +4,7 @@ import 'package:focus_time/core/utils/app_colors.dart';
 import 'package:focus_time/core/widgets/details_list.dart';
 import 'package:focus_time/core/widgets/stretch_scroll_widget.dart';
 import 'package:focus_time/features/groups/data/models/group_model.dart';
+import 'package:focus_time/features/groups/presentation/screens/group_settings.dart';
 import 'package:focus_time/features/groups/presentation/screens/members_screen.dart';
 
 class GroupDetails extends StatelessWidget {
@@ -15,17 +16,23 @@ class GroupDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<DetailsListItem> _groupDetailsItems = [
       DetailsListItem(
-        route: MembersScreen(),
+        route: MembersScreen(
+          members: group.groupMembers,
+        ),
         title: 'Tasks',
         icon: Icons.assignment,
       ),
       DetailsListItem(
-        route: MembersScreen(),
+        route: MembersScreen(
+          members: group.groupMembers,
+        ),
         title: 'Members',
         icon: Icons.people,
       ),
       DetailsListItem(
-        route: MembersScreen(),
+        route: GroupSettingsScreen(
+          owner: group.groupOwner,
+        ),
         title: 'Settings',
         icon: Icons.settings,
       ),
